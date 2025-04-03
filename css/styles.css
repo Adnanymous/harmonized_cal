@@ -216,7 +216,7 @@ h1, h2, h3, h4, .logo {
     left: 0;
     width: 100%;
     height: 100%;
-    background: none;  /* Remove diagonal lines */
+    background: none;
     pointer-events: none;
     z-index: 1;
 }
@@ -226,19 +226,24 @@ h1, h2, h3, h4, .logo {
     position: absolute;
     top: 2rem;
     right: 2rem;
-    width: 150px;
-    height: 150px;
-    background: radial-gradient(
-        circle at center,
-        rgba(255, 255, 255, 0.9) 0%,
-        rgba(255, 255, 255, 0.7) 20%,
-        rgba(255, 255, 255, 0.4) 40%,
-        rgba(255, 255, 255, 0.1) 60%,
-        transparent 80%
-    );
-    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    background-image: url('https://static.vecteezy.com/system/resources/previews/045/354/775/non_2x/lunar-radiance-clear-background-moon-free-png.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     z-index: 2;
-    box-shadow: 0 0 50px rgba(255, 255, 255, 0.3);
+    filter: brightness(1.2) contrast(1.1);
+    animation: moonGlow 4s ease-in-out infinite;
+}
+
+@keyframes moonGlow {
+    0%, 100% {
+        filter: brightness(1.2) contrast(1.1);
+    }
+    50% {
+        filter: brightness(1.3) contrast(1.2);
+    }
 }
 
 #hero h1 {
