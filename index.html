@@ -7,20 +7,20 @@
     <title>Harmonized Calendar System</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
+        <a href="#" class="logo">
+            <i class="fas fa-leaf"></i>
+            Harmonized Calendar
+        </a>
         <nav class="navbar">
-            <div class="logo">
-                <i class="fas fa-leaf"></i>
-                Harmonized Calendar
-            </div>
             <ul class="nav-links">
-                <li><a href="#overview"><i class="fas fa-seedling"></i> Overview</a></li>
-                <li><a href="#calendar"><i class="fas fa-moon"></i> Calendar</a></li>
-                <li><a href="#comparison"><i class="fas fa-balance-scale"></i> Comparison</a></li>
-                <li><a href="#faq"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                <li><a href="#overview"><i class="fas fa-seedling"></i> Natural Wisdom</a></li>
+                <li><a href="#calendar"><i class="fas fa-moon"></i> Sacred Calendar</a></li>
+                <li><a href="#comparison"><i class="fas fa-balance-scale"></i> Natural Harmony</a></li>
+                <li><a href="#faq"><i class="fas fa-question-circle"></i> Sacred Knowledge</a></li>
             </ul>
         </nav>
     </header>
@@ -139,6 +139,21 @@
             <p>&copy; 2024 Harmonized Calendar System. All rights reserved.</p>
         </div>
     </footer>
+
+    <div class="modal-overlay"></div>
+    <div class="month-modal">
+        <div class="modal-header">
+            <h3 class="modal-title">Month View</h3>
+            <div class="modal-nav">
+                <button class="prev-month"><i class="fas fa-chevron-left"></i></button>
+                <button class="next-month"><i class="fas fa-chevron-right"></i></button>
+                <button class="close-modal"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+        <div class="modal-content">
+            <!-- Month view content will be dynamically inserted here -->
+        </div>
+    </div>
 
     <script src="js/calendar.js"></script>
     <script src="js/main.js"></script>
