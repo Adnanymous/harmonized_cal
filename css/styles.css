@@ -74,7 +74,11 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--foggy-gray);
+    background: 
+        radial-gradient(circle at 15% 50%, 
+            rgba(203, 161, 53, 0.1) 0%,
+            rgba(203, 161, 53, 0.05) 30%,
+            transparent 70%);
     pointer-events: none;
     z-index: 1;
 }
@@ -165,9 +169,11 @@ h1, h2, h3, h4, .logo {
     position: fixed;
     top: 2rem;
     left: 2rem;
-    font-size: 1.5rem;
-    color: var(--primary-color);
+    font-size: 1.8rem;
+    font-weight: bold;
     text-decoration: none;
+    color: #C5E1A5;  /* Light sage green */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -195,14 +201,28 @@ h1, h2, h3, h4, .logo {
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%),
-                linear-gradient(-45deg, rgba(255,255,255,0.1) 25%, transparent 25%),
-                linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.1) 75%),
-                linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.1) 75%);
-    background-size: 20px 20px;
-    opacity: 0.1;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 85% 15%, rgba(203, 161, 53, 0.15) 0%, transparent 50%),  /* Moon glow */
+        linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.05) 49%, transparent 51%);
+    background-size: 100% 100%, 80px 80px;  /* Larger diamond pattern */
+    pointer-events: none;
+    z-index: 1;
+}
+
+#hero::after {
+    content: '';
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle at 70% 70%, 
+        rgba(203, 161, 53, 0.2) 0%,
+        transparent 60%);
+    border-radius: 50%;
+    z-index: 2;
 }
 
 #hero h1 {
@@ -806,4 +826,37 @@ footer {
     border-color: var(--golden-accent);
     color: var(--golden-accent);
     transform: translateX(-10px);
+}
+
+.feature-icon {
+    color: var(--golden-accent);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+/* Add subtle rays emanating from the sun */
+body::after {
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 15%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        rgba(203, 161, 53, 0.03) 20deg,
+        transparent 40deg,
+        rgba(203, 161, 53, 0.03) 60deg,
+        transparent 80deg
+    );
+    animation: sunRotate 60s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes sunRotate {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
 } 
