@@ -61,7 +61,11 @@ body {
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 1.6;
     color: var(--text-light);
-    background: var(--deep-emerald);
+    background: radial-gradient(
+        circle at 15% 50%,
+        rgba(255, 255, 255, 0.1) 0%,
+        var(--deep-emerald) 70%
+    );
     position: relative;
     min-height: 100vh;
 }
@@ -70,17 +74,22 @@ body {
 body::before {
     content: '';
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        radial-gradient(circle at 15% 50%, 
-            rgba(203, 161, 53, 0.1) 0%,
-            rgba(203, 161, 53, 0.05) 30%,
-            transparent 70%);
+    top: 50%;
+    left: 15%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(
+        circle at center,
+        rgba(255, 235, 59, 0.3) 0%,
+        rgba(255, 235, 59, 0.2) 20%,
+        rgba(255, 235, 59, 0.1) 40%,
+        rgba(255, 235, 59, 0.05) 60%,
+        transparent 80%
+    );
     pointer-events: none;
     z-index: 1;
+    box-shadow: 0 0 100px rgba(255, 235, 59, 0.2);
 }
 
 /* Cosmic Dust Pattern */
@@ -189,7 +198,11 @@ h1, h2, h3, h4, .logo {
     align-items: center;
     text-align: center;
     padding: 2rem;
-    background: var(--deep-emerald);
+    background: radial-gradient(
+        circle at 85% 15%,
+        rgba(255, 255, 255, 0.15) 0%,
+        var(--deep-emerald) 50%
+    );
     color: white;
     position: relative;
     overflow: hidden;
@@ -203,10 +216,7 @@ h1, h2, h3, h4, .logo {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: 
-        radial-gradient(circle at 85% 15%, rgba(203, 161, 53, 0.15) 0%, transparent 50%),  /* Moon glow */
-        linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.05) 49%, transparent 51%);
-    background-size: 100% 100%, 80px 80px;  /* Larger diamond pattern */
+    background: none;  /* Remove diagonal lines */
     pointer-events: none;
     z-index: 1;
 }
@@ -216,13 +226,19 @@ h1, h2, h3, h4, .logo {
     position: absolute;
     top: 2rem;
     right: 2rem;
-    width: 100px;
-    height: 100px;
-    background: radial-gradient(circle at 70% 70%, 
-        rgba(203, 161, 53, 0.2) 0%,
-        transparent 60%);
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(
+        circle at center,
+        rgba(255, 255, 255, 0.9) 0%,
+        rgba(255, 255, 255, 0.7) 20%,
+        rgba(255, 255, 255, 0.4) 40%,
+        rgba(255, 255, 255, 0.1) 60%,
+        transparent 80%
+    );
     border-radius: 50%;
     z-index: 2;
+    box-shadow: 0 0 50px rgba(255, 255, 255, 0.3);
 }
 
 #hero h1 {
@@ -841,14 +857,14 @@ body::after {
     top: 50%;
     left: 15%;
     transform: translate(-50%, -50%);
-    width: 300px;
-    height: 300px;
+    width: 400px;
+    height: 400px;
     background: conic-gradient(
         from 0deg,
         transparent 0deg,
-        rgba(203, 161, 53, 0.03) 20deg,
+        rgba(255, 235, 59, 0.05) 20deg,
         transparent 40deg,
-        rgba(203, 161, 53, 0.03) 60deg,
+        rgba(255, 235, 59, 0.05) 60deg,
         transparent 80deg
     );
     animation: sunRotate 60s linear infinite;
