@@ -8,7 +8,8 @@
     --text-color: #2c3e50;
     --card-background: #ffffff;
     --gradient-start: #154734;
-    --gradient-end: #1a5632;
+    --gradient-middle: #0d2b1f;
+    --gradient-end: #051510;
     --hover-color: #1f6b3d;
 }
 
@@ -22,8 +23,22 @@ body {
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 1.6;
     color: var(--text-color);
-    background-color: var(--background-color);
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0c16.569 0 30 13.431 30 30 0 16.569-13.431 30-30 30C13.431 60 0 46.569 0 30 0 13.431 13.431 0 30 0zm0 5C16.215 5 5 16.215 5 30c0 13.785 11.215 25 25 25s25-11.215 25-25C55 16.215 43.785 5 30 5z' fill='%23154734' fill-opacity='0.05'/%3E%3C/svg%3E");
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-middle), var(--gradient-end));
+    background-attachment: fixed;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23154734' fill-opacity='0.1'%3E%3Cpath d='M50 0L0 50l50 50 50-50L50 0zm0 22L22 50l28 28 28-28L50 22z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.05;
+    z-index: -1;
+    pointer-events: none;
 }
 
 h1, h2, h3, h4, .logo {
@@ -300,18 +315,39 @@ section h2::after {
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+.year-controls button {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.year-controls button:hover {
+    background: var(--hover-color);
+}
+
+.year-controls span {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    font-family: 'Playfair Display', serif;
 }
 
 .month-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
 .month-section {
     background: var(--card-background);
-    padding: 1rem;
+    padding: 1.5rem;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(21, 71, 52, 0.1);
     cursor: pointer;
@@ -325,8 +361,38 @@ section h2::after {
 
 .month-section h3 {
     color: var(--primary-color);
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     text-align: center;
+    font-size: 1.2rem;
+}
+
+.preview-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    font-size: 0.8rem;
+}
+
+.preview-grid .weekday-header {
+    font-size: 0.7rem;
+    padding: 2px;
+    background: none;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.preview-day {
+    text-align: center;
+    padding: 2px;
+    color: var(--text-color);
+    min-height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.preview-day:empty {
+    background: rgba(21, 71, 52, 0.05);
 }
 
 /* Month View Modal */
@@ -577,4 +643,43 @@ footer {
         padding: 0.8rem 1.5rem;
         font-size: 0.9rem;
     }
+}
+
+/* Month Modal Styles */
+.month-modal .month-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-top: 1rem;
+}
+
+.month-modal .weekday-header {
+    text-align: center;
+    padding: 0.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    background: rgba(21, 71, 52, 0.1);
+    border-radius: 4px;
+}
+
+.calendar-day {
+    text-align: center;
+    padding: 0.8rem;
+    background: var(--card-background);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.5rem;
+}
+
+.calendar-day:not(.empty):hover {
+    background: var(--primary-color);
+    color: white;
+    transform: scale(1.1);
+}
+
+.calendar-day.empty {
+    background: rgba(21, 71, 52, 0.05);
 } 

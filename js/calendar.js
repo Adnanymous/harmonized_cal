@@ -39,13 +39,26 @@ class HarmonizedCalendar {
         // Generate regular days for each month
         this.months.forEach((month, index) => {
             const monthDays = [];
+            // Each month starts on a Tuesday in the Harmonized Calendar
+            const startDay = 2; // Tuesday is index 2 in our weekdays array
+            
+            // Add empty cells for days before the start day
+            for (let i = 0; i < startDay; i++) {
+                monthDays.push({
+                    type: 'empty',
+                    day: ''
+                });
+            }
+            
+            // Add the actual days
             for (let day = 1; day <= 28; day++) {
                 monthDays.push({
                     type: 'regular',
                     day: day,
-                    month: month
+                    weekday: this.weekdays[(startDay + day - 1) % 7]
                 });
             }
+            
             calendar.push({
                 month: month,
                 days: monthDays
@@ -75,7 +88,8 @@ class HarmonizedCalendar {
                 html += `
                     <div class="month-section" data-month="${index}">
                         <h3>${monthData.month}</h3>
-                        <div class="month-preview">
+                        <div class="preview-grid">
+                            ${this.weekdays.map(day => `<div class="weekday-header">${day[0]}</div>`).join('')}
                             ${this.generateMonthPreview(monthData.days)}
                         </div>
                     </div>
@@ -96,13 +110,9 @@ class HarmonizedCalendar {
     }
 
     generateMonthPreview(days) {
-        let html = '<div class="preview-grid">';
-        // Show first week as preview
-        for (let i = 0; i < 7; i++) {
-            html += `<div class="preview-day">${days[i].day}</div>`;
-        }
-        html += '</div>';
-        return html;
+        return days.slice(0, 28).map(day => 
+            `<div class="preview-day">${day.type === 'regular' ? day.day : ''}</div>`
+        ).join('');
     }
 
     showMonthModal(monthIndex, year) {
@@ -118,18 +128,14 @@ class HarmonizedCalendar {
         let html = `
             <div class="month-grid">
                 ${this.weekdays.map(day => `<div class="weekday-header">${day}</div>`).join('')}
+                ${monthData.days.map(day => `
+                    <div class="calendar-day${day.type === 'empty' ? ' empty' : ''}">
+                        ${day.type === 'regular' ? day.day : ''}
+                    </div>
+                `).join('')}
+            </div>
         `;
 
-        // Add days to the grid
-        monthData.days.forEach(day => {
-            html += `
-                <div class="calendar-day">
-                    ${day.day}
-                </div>
-            `;
-        });
-
-        html += '</div>';
         modal.querySelector('.modal-content').innerHTML = html;
 
         // Show modal and overlay
