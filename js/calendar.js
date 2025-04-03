@@ -1,10 +1,7 @@
 class HarmonizedCalendar {
     constructor() {
-        this.months = [
-            "Spring Equinox", "April", "May", "June", "July", "August", "September",
-            "October", "November", "December", "January", "February", "March"
-        ];
-        this.weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        this.months = Array.from({length: 13}, (_, i) => `Month ${i + 1}`);
+        this.weekdays = ["Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Mon"];
         this.currentYear = new Date().getFullYear();
         this.currentMonth = 0;
     }
@@ -20,42 +17,17 @@ class HarmonizedCalendar {
 
     generateCalendar(year) {
         const calendar = [];
-        const springEquinox = this.getSpringEquinox(year);
         const isLeap = this.isLeapYear(year);
 
-        // Add special days
-        calendar.push({
-            type: 'special',
-            name: 'Leap Day',
-            date: isLeap ? 'March 18' : null
-        });
-
-        calendar.push({
-            type: 'special',
-            name: 'Day Out of Time',
-            date: 'March 19'
-        });
-
-        // Generate regular days for each month
+        // Generate regular months
         this.months.forEach((month, index) => {
             const monthDays = [];
-            // Each month starts on a Tuesday in the Harmonized Calendar
-            const startDay = 2; // Tuesday is index 2 in our weekdays array
-            
-            // Add empty cells for days before the start day
-            for (let i = 0; i < startDay; i++) {
-                monthDays.push({
-                    type: 'empty',
-                    day: ''
-                });
-            }
-            
-            // Add the actual days
+            // Add the regular days (all months start on Tuesday)
             for (let day = 1; day <= 28; day++) {
                 monthDays.push({
                     type: 'regular',
                     day: day,
-                    weekday: this.weekdays[(startDay + day - 1) % 7]
+                    weekday: this.weekdays[(day - 1) % 7]
                 });
             }
             
@@ -63,6 +35,23 @@ class HarmonizedCalendar {
                 month: month,
                 days: monthDays
             });
+        });
+
+        // Add special days section
+        calendar.push({
+            month: 'Special Days',
+            days: [
+                {
+                    type: 'special',
+                    name: 'Day Out of Time',
+                    date: 'Before Month 1'
+                },
+                {
+                    type: 'special',
+                    name: 'Leap Day',
+                    date: isLeap ? 'Extra Day' : null
+                }
+            ]
         });
 
         return calendar;
@@ -79,22 +68,23 @@ class HarmonizedCalendar {
                 <span>${year}</span>
                 <button onclick="calendar.displayCalendar(${year + 1})"><i class="fas fa-chevron-right"></i></button>
             </div>
+            <div class="special-days">
+                ${this.generateSpecialDaysSection(calendar[calendar.length - 1])}
+            </div>
             <div class="month-grid">
         `;
 
         // Add each month to the grid
-        calendar.forEach((monthData, index) => {
-            if (monthData.month) {
-                html += `
-                    <div class="month-section" data-month="${index}">
-                        <h3>${monthData.month}</h3>
-                        <div class="preview-grid">
-                            ${this.weekdays.map(day => `<div class="weekday-header">${day[0]}</div>`).join('')}
-                            ${this.generateMonthPreview(monthData.days)}
-                        </div>
+        calendar.slice(0, -1).forEach((monthData, index) => {
+            html += `
+                <div class="month-section" data-month="${index}">
+                    <h3>${monthData.month}</h3>
+                    <div class="preview-grid">
+                        ${this.weekdays.map(day => `<div class="weekday-header">${day[0]}</div>`).join('')}
+                        ${this.generateMonthPreview(monthData.days)}
                     </div>
-                `;
-            }
+                </div>
+            `;
         });
 
         html += '</div>';
@@ -109,9 +99,25 @@ class HarmonizedCalendar {
         });
     }
 
+    generateSpecialDaysSection(specialDays) {
+        return `
+            <div class="special-days-section">
+                <h3>Special Days</h3>
+                <div class="special-days-grid">
+                    ${specialDays.days.map(day => `
+                        <div class="special-day${day.date ? '' : ' disabled'}">
+                            <div class="special-day-name">${day.name}</div>
+                            <div class="special-day-date">${day.date || 'Not this year'}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    }
+
     generateMonthPreview(days) {
-        return days.slice(0, 28).map(day => 
-            `<div class="preview-day">${day.type === 'regular' ? day.day : ''}</div>`
+        return days.map(day => 
+            `<div class="preview-day">${day.day}</div>`
         ).join('');
     }
 
@@ -119,7 +125,7 @@ class HarmonizedCalendar {
         const modal = document.querySelector('.month-modal');
         const overlay = document.querySelector('.modal-overlay');
         const calendar = this.generateCalendar(year);
-        const monthData = calendar[monthIndex + 2]; // +2 to account for special days
+        const monthData = calendar[monthIndex];
 
         // Update modal title
         modal.querySelector('.modal-title').textContent = monthData.month;
@@ -129,8 +135,8 @@ class HarmonizedCalendar {
             <div class="month-grid">
                 ${this.weekdays.map(day => `<div class="weekday-header">${day}</div>`).join('')}
                 ${monthData.days.map(day => `
-                    <div class="calendar-day${day.type === 'empty' ? ' empty' : ''}">
-                        ${day.type === 'regular' ? day.day : ''}
+                    <div class="calendar-day">
+                        ${day.day}
                     </div>
                 `).join('')}
             </div>
