@@ -27,36 +27,6 @@
     box-sizing: border-box;
 }
 
-@keyframes mistFlow {
-    0% {
-        transform: translateX(-50%) translateY(0);
-        opacity: 0.3;
-    }
-    50% {
-        transform: translateX(0) translateY(-20%);
-        opacity: 0.7;
-    }
-    100% {
-        transform: translateX(50%) translateY(0);
-        opacity: 0.3;
-    }
-}
-
-@keyframes auroraGlow {
-    0% {
-        opacity: 0.2;
-        transform: translateX(-100%) skewX(-45deg);
-    }
-    50% {
-        opacity: 0.5;
-        transform: translateX(0) skewX(-45deg);
-    }
-    100% {
-        opacity: 0.2;
-        transform: translateX(100%) skewX(-45deg);
-    }
-}
-
 body {
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 1.6;
